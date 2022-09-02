@@ -1,3 +1,4 @@
+/*
 package com.example.restdemo.service.impl;
 
 import com.example.restdemo.model.Course;
@@ -45,3 +46,4 @@ public class CourseServiceImpl implements CourseService {
     }
 
 }
+*/

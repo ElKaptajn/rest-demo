@@ -1,3 +1,4 @@
+/*
 package com.example.restdemo.controller;
 
 import com.example.restdemo.model.Course;
@@ -35,3 +36,4 @@ public class CourseController {
     }
 
 }
+*/
