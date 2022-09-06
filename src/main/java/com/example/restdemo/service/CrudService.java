@@ -1,4 +1,3 @@
-/*
 package com.example.restdemo.service;
 
 import java.util.Optional;
@@ -12,4 +11,3 @@ public interface CrudService<T, ID> {    //Super interface til flere services
     Optional<T> findById(ID id);
 
 }
-*/
