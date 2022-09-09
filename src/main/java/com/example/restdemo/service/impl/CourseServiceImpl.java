@@ -27,7 +27,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course save(Course object) {
-
         return courseRepository.save(object);
     }
 
@@ -37,11 +36,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteById(Long aLong) {
+        courseRepository.deleteById(aLong);
     }
 
     @Override
     public Optional<Course> findById(Long aLong) {
-        return Optional.empty();
+        return courseRepository.findById(aLong);
     }
 
 }

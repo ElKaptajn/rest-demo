@@ -1,4 +1,3 @@
-
 package com.example.restdemo.controller;
 
 import com.example.restdemo.model.Course;
@@ -10,29 +9,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
+@RequestMapping("course")
 public class CourseController {
 
     private CourseService courseService;
+
 
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
-    @GetMapping("/courses")
+    @GetMapping
     public ResponseEntity<Set<Course>> getCourses() { // returns data as JSON
         return new ResponseEntity<>(courseService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/addCourse")
-    public ResponseEntity<Set<Course>> addCourse(Course course) { // returns data as JSON
+    @GetMapping("/{courseId}")
+    public ResponseEntity<Course> getCourseDetails(@PathVariable Long courseId) { // returns data as JSON
+        return new ResponseEntity<>(courseService.findById(courseId).get(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Set<Course>> addCourse(@RequestBody Course course) { // returns data as JSON
         courseService.save(course);
         return new ResponseEntity<>(courseService.findAll(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteCourse")
-    public ResponseEntity<Set<Course>> deleteCourse(Long courseId){
+    @DeleteMapping("/{courseId}")
+    public String deleteCourse(@PathVariable("courseId") Long courseId){
         courseService.deleteById(courseId);
-        return new ResponseEntity<>(courseService.findAll(), HttpStatus.OK);
+        return "user with id: " + courseId + " have been deleted";
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.restdemo.controller;
 
 import com.example.restdemo.model.User;
 import com.example.restdemo.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -18,8 +20,8 @@ public class UserController {
 
     //Læser en bruger ud fra ID
     @GetMapping("{userId}")
-    public User getUserDetails(@PathVariable("userId") long userId){
-        return userService.getUser(userId);
+    public ResponseEntity<User> getUserDetails(@PathVariable("userId") long userId){
+        return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
     }
 
     //Læser alle brugere fra databasen
@@ -29,15 +31,15 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user){
         userService.createUser(user);
-        return "User created";
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping
-    public String updateUser(@RequestBody User user){
+    public ResponseEntity<User> updateUser(@RequestBody User user){
         userService.updateUser(user);
-        return "User updated";
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("{userId}")
@@ -45,4 +47,5 @@ public class UserController {
         userService.deleteUser(userId);
         return "User deleted";
     }
+
 }

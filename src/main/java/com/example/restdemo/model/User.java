@@ -1,6 +1,6 @@
 package com.example.restdemo.model;
 
-import net.bytebuddy.build.ToStringPlugin;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -10,11 +10,29 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private long id;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column
     private String email;
+    @Column
     private int age;
+
+
+    /**
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="course_id")
+    private Course course;
+    */
 
 
     public User() {
@@ -29,6 +47,13 @@ public class User {
         this.age = age;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     public long getId() {
         return id;
@@ -81,5 +106,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public void addCourse(Course course) {
+        this.course = course;
     }
 }

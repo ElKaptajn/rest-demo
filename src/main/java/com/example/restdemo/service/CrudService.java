@@ -10,4 +10,5 @@ public interface CrudService<T, ID> {    //Super interface til flere services
     void deleteById(ID id);
     Optional<T> findById(ID id);
 
+
 }

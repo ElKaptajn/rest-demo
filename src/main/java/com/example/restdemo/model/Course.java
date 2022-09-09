@@ -1,6 +1,5 @@
 package com.example.restdemo.model;
 
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
@@ -14,13 +13,19 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    private Set<User> enrolledUsers = new HashSet<>();
+
+    @Column
     private String name;
+    @Column
     private Date startDate;
 
-    @OneToMany( cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_user_id")
+    /**
+    @OneToMany(mappedBy = "course")
     private Set<User> userList;
-
+    */
 
     public Course(String name, Date startDate) {
         this.name = name;
@@ -31,6 +36,15 @@ public class Course {
 
     }
 
+    public void setEnrolledUsers(Set<User> enrolledUsers) {
+        this.enrolledUsers = enrolledUsers;
+    }
+
+    public Set<User> getEnrolledUsers() {
+        return enrolledUsers;
+    }
+
+    /**
     public Set<User> getUserList() {
         return userList;
     }
@@ -38,6 +52,7 @@ public class Course {
     public void setUserList(Set<User> userList) {
         this.userList = userList;
     }
+*/
 
     public long getId() {
         return id;
@@ -63,5 +78,8 @@ public class Course {
         this.startDate = startDate;
     }
 
+    public void enrollUser (User user){
+        enrolledUsers.add(user);
+    }
 
 }
